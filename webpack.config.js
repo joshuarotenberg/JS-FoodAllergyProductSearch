@@ -2,7 +2,10 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: [ 
+    './src/index.js',
+    './src/js/checkboxes.js'
+  ],
   output: {
     filename: "app.js",
     path: path.resolve(__dirname, "dist")

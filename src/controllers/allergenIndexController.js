@@ -19,8 +19,6 @@ export default function allergenIndexController() {
         const allergenIndexTemplateFunc = Handlebars.compile(allergenIndexTemplateHtml);
         const allergenResultsTemplateFunc = Handlebars.compile(allergenResultsTemplateHtmll);
 
-
-       
     
         document
         .getElementById("root")
@@ -117,6 +115,25 @@ export default function allergenIndexController() {
             }
         
            }
+
+           ////// grab Allergens selected
+
+           const allergenForm = document
+           .getElementById("allergen-form");
+           
+           allergenForm.addEventListener("submit", function(event) {
+              console.log("form submitted");
+              console.log(event);
+              const myAllergens = [];
+
+              allergenForm.querySelectorAll('input').forEach(function (input) {
+                if(input.type === 'checkbox' && input.checked) {
+                  myAllergens.push(input.value);
+                }
+              })
+
+              console.log(myAllergens)
+           })
 
 
     }

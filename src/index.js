@@ -1,8 +1,6 @@
 import profileIndexController from "./controllers/profileIndexController";
 import allergenIndexController from "./controllers/allergenIndexController";
 
-
-
 const routes = {
   "/dashboard": profileIndexController,
   "/allergens": allergenIndexController,
