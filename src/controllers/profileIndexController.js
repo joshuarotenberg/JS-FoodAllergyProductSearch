@@ -27,6 +27,7 @@ export default function profileIndexController() {
         .getElementById("root")
         .innerHTML = profileIndexTemplateFunc();
 
-        
+
+
     }
 }
