@@ -29,7 +29,9 @@ export default function allergenIndexController() {
     function render(allergenIndexTemplateHtml, allergenResultsTemplateHtml, editAllergenTemplateHtml) {
         const allergenIndexTemplateFunc = Handlebars.compile(allergenIndexTemplateHtml);
         const allergenResultsTemplateFunc = Handlebars.compile(allergenResultsTemplateHtml);
-        const editAllergenTemplateFunc = Handlebars.compile(editAllergenTemplateHtml);
+        const editAllergenTemplateFunc = Handlebars.compile(editAllergenTemplateHtml);   
+
+        const allergenList = ['egg', 'milk', 'peanut', 'sesame', 'soy', 'wheat', 'tree nut', 'shellfish', 'fish' ];
 
     
         document
@@ -110,86 +112,106 @@ export default function allergenIndexController() {
           }
         });
 
-                        // Shellfish Group
+              // Shellfish Group
 
-                const shellfish = document.querySelectorAll('.shellfish input.sub-options');
-                console.log(shellfish);
-                  const checkall = document.getElementById('shellfish');
+      const shellfish = document.querySelectorAll('.shellfish input.sub-options');
+      console.log(shellfish);
+        const checkall = document.getElementById('shellfish');
 
-                for(let i=0; i< shellfish.length; i++) {
-                  shellfish[i].onclick = function() {
-                    
-                    let checkedCount = document.querySelectorAll('.shellfish input.sub-options:checked').length;
-
-                    checkall.checked = checkedCount > 0;
-                    checkall.indeterminate = checkedCount > 0 && checkedCount < shellfish.length;
-                  }
-                }
-
-                checkall.onclick = function() {
-                  for(let i=0; i< shellfish.length; i++) {
-                    shellfish[i].checked = this.checked;
-                  }
-                }
-
-
-                    // Tree Nuts Group
-
-                  const treeNuts = document.querySelectorAll('.tree-nuts input.sub-options');
-                  console.log(treeNuts);
-                  const treeNutsChecksall = document.getElementById('tree-nuts');
+      for(let i=0; i< shellfish.length; i++) {
+        shellfish[i].onclick = function() {
           
-                  for(let i=0; i< treeNuts.length; i++) {
-                    treeNuts[i].onclick = function() {
-                      
-                      let treeNutsCHeckedCounts = document.querySelectorAll('.tree-nuts input.sub-options:checked').length;
-          
-                      treeNutsChecksall.checked = treeNutsCHeckedCounts > 0;
-                      treeNutsChecksall.indeterminate = treeNutsCHeckedCounts > 0 && treeNutsCHeckedCounts < treeNuts.length;
-                    }
-                  }
-          
-                  treeNutsChecksall.onclick = function() {
-                    for(let i=0; i< treeNuts.length; i++) {
-                      treeNuts[i].checked = this.checked;
-                    }
-                
-                  }
+          let checkedCount = document.querySelectorAll('.shellfish input.sub-options:checked').length;
 
-                  // event delegators
+          checkall.checked = checkedCount > 0;
+          checkall.indeterminate = checkedCount > 0 && checkedCount < shellfish.length;
+        }
+      }
 
-                  document
-                  .addEventListener("click", (event) => {
-                    if (event.target.classList.contains("edit-profile-button")) {
-                      console.log("clicking edit button");
+      checkall.onclick = function() {
+        for(let i=0; i< shellfish.length; i++) {
+          shellfish[i].checked = this.checked;
+        }
+      }
 
-                      // grab profileId from edit button
 
-                      const profileId = event.target.id;
-                      console.log(profileId);
+          // Tree Nuts Group
 
-                      document
-                      .querySelector(".edit-modal")
-                      .setAttribute('id', `edit-profile-modal${profileId}`);
+        const treeNuts = document.querySelectorAll('.tree-nuts input.sub-options');
+        console.log(treeNuts);
+        const treeNutsChecksall = document.getElementById('tree-nuts');
+
+        for(let i=0; i< treeNuts.length; i++) {
+          treeNuts[i].onclick = function() {
+            
+            let treeNutsCHeckedCounts = document.querySelectorAll('.tree-nuts input.sub-options:checked').length;
+
+            treeNutsChecksall.checked = treeNutsCHeckedCounts > 0;
+            treeNutsChecksall.indeterminate = treeNutsCHeckedCounts > 0 && treeNutsCHeckedCounts < treeNuts.length;
+          }
+        }
+
+        treeNutsChecksall.onclick = function() {
+          for(let i=0; i< treeNuts.length; i++) {
+            treeNuts[i].checked = this.checked;
+          }
       
-                      $('.edit-profile-modal').modal('show');
-      
-      
-                      // pull in profile for update
-      
-                          database
-                          .ref("profiles")
-                          .child(profileId)
-                          .on("value", (results) => {
-                              const oneProfile = results.val();
-      
-                              document
-                              .getElementById("edit-modal-form")
-                              .innerHTML = editAllergenTemplateFunc(oneProfile);
-                          });
-                    }  // end edit button event
+        }
 
-                  });
+        // event delegators
+
+        document
+        .addEventListener("click", (event) => {
+          if (event.target.classList.contains("edit-profile-button")) {
+            console.log("clicking edit button");
+
+            // grab profileId from edit button
+
+            const profileId = event.target.id;
+            console.log(profileId);
+
+            document
+            .querySelector(".edit-modal")
+            .setAttribute('id', `edit-profile-modal${profileId}`);
+
+            $('.edit-profile-modal').modal('show');
+
+
+            // pull in profile for update
+
+                database
+                .ref("profiles")
+                .child(profileId)
+                .on("value", (results) => {
+                    const oneProfile = results.val();
+
+                    document
+                    .getElementById("edit-modal-form")
+                    .innerHTML = editAllergenTemplateFunc(oneProfile);
+
+                    document.querySelector(".delete-profile-button").id = profileId;
+                });
+          }  // end edit button event
+
+          if (event.target.classList.contains("delete-profile-button")){
+            console.log("clicking delete button");
+            event.preventDefault();
+            const profileId = event.target.id;
+
+            console.log(profileId);
+
+
+            database
+            .ref("profiles")
+            .child(profileId)
+            .remove()
+            .then(() => {
+                $(".edit-modal").modal("hide");
+                window.location.href = "#/allergens";
+            });
+        }
+
+        });
 
 
                    
