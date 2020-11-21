@@ -71,7 +71,7 @@ export default function allergenIndexController() {
         
            }
 
-           ////// grab Allergens selected
+           ////// create new allergen profile
 
            const allergenForm = document
            .getElementById("allergen-profile-form");
@@ -109,7 +109,33 @@ export default function allergenIndexController() {
                     $("#allergenModal").modal("hide");
                 });
 
-           })
+           });
+
+               // display wines from firebase in root
+    
+                document
+                .getElementById("root")
+                .innerHTML = windIndexTemplateFunc();
+
+                const allergenIndex = document.getElementById("allergen-index");
+
+                database
+                .ref("wines")
+                .on("value", (results) => {
+                  allergenIndex.innerHTML = "";
+
+                    results.forEach((result) => {
+
+                        const profile = result.val();
+                        const profileId = result.key;
+                        
+                        allergenIndex.innerHTML += allergenResultsTemplateFunc({...profile,
+                            profileId: profileId 
+                        });
+
+                            
+                    });
+                });
 
 
     }
