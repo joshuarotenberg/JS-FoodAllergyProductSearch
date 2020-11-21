@@ -115,12 +115,12 @@ export default function allergenIndexController() {
     
                 document
                 .getElementById("root")
-                .innerHTML = windIndexTemplateFunc();
+                .innerHTML = allergenIndexTemplateFunc();
 
                 const allergenIndex = document.getElementById("allergen-index");
 
                 database
-                .ref("wines")
+                .ref("profiles")
                 .on("value", (results) => {
                   allergenIndex.innerHTML = "";
 
