@@ -47,51 +47,6 @@ export default function allergenIndexController() {
           }
         }
 
-         // Gluten Group
-
-         const gluten = document.querySelectorAll('.gluten input.sub-options');
-         console.log(gluten);
-         const glutenCheckall = document.getElementById('gluten');
- 
-         for(let i=0; i< gluten.length; i++) {
-            gluten[i].onclick = function() {
-             
-             let glutenCheckedCount = document.querySelectorAll('.gluten input.sub-options:checked').length;
- 
-             glutenCheckall.checked = glutenCheckedCount > 0;
-             glutenCheckall.indeterminate = glutenCheckedCount > 0 && glutenCheckedCount < gluten.length;
-           }
-         }
- 
-         glutenCheckall.onclick = function() {
-           for(let i=0; i< gluten.length; i++) {
-              gluten[i].checked = this.checked;
-           }
-         }
-
-          // Moluscs Group
-
-          const moluscs = document.querySelectorAll('.moluscs input.sub-options');
-          console.log(moluscs);
-          const moluscsCheckall = document.getElementById('moluscs');
-  
-          for(let i=0; i< moluscs.length; i++) {
-             moluscs[i].onclick = function() {
-              
-              let moluscsCheckedCount = document.querySelectorAll('.moluscs input.sub-options:checked').length;
-  
-              moluscsCheckall.checked = moluscsCheckedCount > 0;
-              moluscsCheckall.indeterminate = moluscsCheckedCount > 0 && moluscsCheckedCount < moluscs.length;
-            }
-          }
-  
-          moluscsCheckall.onclick = function() {
-            for(let i=0; i< moluscs.length; i++) {
-               moluscs[i].checked = this.checked;
-            }
-        
-           }
-
 
             // Tree Nuts Group
 
@@ -119,11 +74,14 @@ export default function allergenIndexController() {
            ////// grab Allergens selected
 
            const allergenForm = document
-           .getElementById("allergen-form");
+           .getElementById("allergen-profile-form");
            
-           allergenForm.addEventListener("submit", function(event) {
+           allergenForm.addEventListener("submit", (event) => {
+             event.preventDefault();
               console.log("form submitted");
-              console.log(event);
+
+              const profileName = document.getElementById("profile-name").value;
+
               const myAllergens = [];
 
               allergenForm.querySelectorAll('input').forEach(function (input) {
@@ -132,7 +90,25 @@ export default function allergenIndexController() {
                 }
               })
 
-              console.log(myAllergens)
+              console.log(myAllergens);
+
+
+              const newProfile = {
+                name: document.getElementById("profile-name").value,
+                allergens: myAllergens
+                }
+                
+                //add record to Firebase using the Firebase SDK
+
+                console.log(newProfile);
+
+                database
+                .ref("profiles")
+                .push(newProfile)
+                .then(() => {          
+                    $("#allergenModal").modal("hide");
+                });
+
            })
 
 

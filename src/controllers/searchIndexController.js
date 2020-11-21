@@ -100,6 +100,7 @@ export default function searchIndexController() {
                         });
 
                         form.reset();
+                        window.location.href = "#/search";
                       })
                       .catch(function (error) {
                           console.error(error);
