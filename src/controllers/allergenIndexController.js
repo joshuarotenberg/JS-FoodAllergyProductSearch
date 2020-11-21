@@ -174,7 +174,7 @@ export default function allergenIndexController() {
             .querySelector(".edit-modal")
             .setAttribute('id', `edit-profile-modal${profileId}`);
 
-            $('.edit-profile-modal').modal('show');
+            $('.edit-modal').modal('show');
 
 
             // pull in profile for update
