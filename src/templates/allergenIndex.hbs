@@ -1,13 +1,34 @@
-<div class="header-cta d-flex flex-row justify-content-between">
-    <h3>Allergens:</h3>
+<div class="header-cta d-flex flex-row justify-content-between mb-5">
+    <h3>Profiles:</h3>
     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#allergenModal">
         Add Allergen Profile
     </button>
 </div>
 
-<div id="allergen-index"></div>
+{{!-- profiles injection point --}}
 
-<div class="container mt-5">
+<div id="allergen-index" class="card-deck d-flex flex-wrap">
+
+</div>
+
+{{!-- edit profile modal --}}
+
+<div id="edit-profile-modal" class="modal fade edit-modal">
+    <div class="modal-dialog">
+
+
+        {{!-- edit form injected here  --}}
+        <div id="edit-modal-form">
+
+        </div>
+
+
+    </div>{{!-- /.modal-dialog --}}
+</div>{{!-- /.modal --}}
+
+{{!-- welcome jumbotron if no profiles --}}
+
+<div id="welcome" class="container mt-5">
     <div class="row">
         <div class="col-12">
             <div class="jumbotron">
@@ -23,6 +44,8 @@
         </div>
     </div>
 </div>
+
+{{!-- add profile modal --}}
 
 <div class="modal fade" id="allergenModal" tabindex="-1" role="dialog" aria-labelledby="allergenModalLabel"
     aria-hidden="true">

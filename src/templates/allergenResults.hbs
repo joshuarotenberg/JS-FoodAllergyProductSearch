@@ -1,8 +1,19 @@
-{{name}}
+<div class="card profile bg-light mb-5" style="min-width: 18rem;">
+    <div class="card-header">{{name}}</div>
+    <div class="card-body">
+        <p class="card-text">Allergens:
+            {{#each allergens}}
+            <span class="badge badge-secondary allergen">{{this}}</span>
+            {{/each}}
+        </p>
+    </div>
+    <ul class="list-group list-group-flush">
 
-<ul>
-    {{#each allergens}}
-    <li>{{this}}</li>
-    {{/each}}
-</ul>
-{{profileId}}
+    </ul>
+    <div class="card-footer bg-transparent">
+        <div class="d-flex flex-row justify-content-end">
+            <button id="{{profileId}}" type="button" class="btn btn-outline-secondary edit-profile-button"
+                data-toggle="modal" data-target="#edit-profile-modal{{profileId}}">EDIT</button>
+        </div>
+    </div>
+</div>

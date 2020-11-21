@@ -39,4 +39,9 @@ nav {
     font-size: 65%;
     font-weight: 400;
   }
+  &.profile {
+    .allergen {
+      text-transform: capitalize;
+    }
+  }
 }
