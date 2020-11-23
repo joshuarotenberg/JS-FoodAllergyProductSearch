@@ -62,10 +62,7 @@ export default function productViewController() {
                     masterAllergenList.push(...wheatAllergens);
                 } else if (isSesame) {
                     masterAllergenList.push(...sesameAllergens);
-                }
-
-                console.log(`count: ${masterAllergenList.length}, ${masterAllergenList}`);
-                    
+                }                    
             });
 
         });
@@ -96,6 +93,7 @@ export default function productViewController() {
             badges: fullProduct.importantBadges
             });
 
+            console.log(masterAllergenList);
    
         });
     }
