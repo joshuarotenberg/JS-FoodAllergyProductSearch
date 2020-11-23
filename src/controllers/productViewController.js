@@ -13,6 +13,8 @@ export default function productViewController() {
 
   function render(productPageHtml) {
     const productPageFunc = Handlebars.compile(productPageHtml);
+    const productId = window.localStorage.getItem("productId");
+
 
     // allergen Arrays with common or hidden ingredients
 
@@ -69,7 +71,6 @@ export default function productViewController() {
         });
     
 
-    const productId = window.localStorage.getItem("productId");
 
     const options = {
         method: 'GET',
