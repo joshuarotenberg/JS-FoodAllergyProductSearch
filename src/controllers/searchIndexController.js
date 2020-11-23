@@ -19,8 +19,9 @@ export default function searchIndexController() {
         const searchIndexTemplateFunc = Handlebars.compile(searchIndexTemplateHtml);
         const searchResultsTemplateFunc = Handlebars.compile(searchResultsTemplateHtmll);
 
+        const eggAllergenList = ['albumin','apovitellin','cholesterol free egg substitute','dried egg solids','dried egg','egg','egg white','egg yolk','egg wash','eggnog','fat substitutes','globulin','livetin','lysozyme','mayonnaise','meringue','meringue powder','ovalbumin','ovoglobulin','ovomucoid','ovomucin','ovotransferrin','ovovitelia','ovovitellin','powdered eggs','silici albuminate','simplesse','trailblazer','vitellin'];
+        console.log(eggAllergenList);
 
-       
         // display wines from firebase in root
     
         document
@@ -75,32 +76,35 @@ export default function searchIndexController() {
                       .request(options)
                       .then(function (response) {
                             const fullProduct = response.data;
-                            console.log(fullProduct)
-                            //grab and merge both badge arrays
-
-                            const importantBadges = fullProduct.importantBadges;
-                            const badges = fullProduct.badges;
-
-                            const productBadges = [...new Set([...importantBadges ,...badges])];
-
-                            const normalizedBadges = [];
-
-                            productBadges.forEach(e => {
-                                normalizedBadges.push(e.replaceAll('_', ' '));
-                            });
-
-                            console.log(normalizedBadges);
+                            console.log(fullProduct);                       
                             
                           document.getElementById("product-index").innerHTML += searchResultsTemplateFunc({
                            title: fullProduct.title,
                            image: fullProduct.images[0],
                            brand: fullProduct.brand,
-                           ingredientList: fullProduct.ingredientList,
-                           badges: normalizedBadges,
+                           productId: fullProduct.id
+                          //  ingredientList: fullProduct.ingredientList,
+                          //  badges: fullProduct.importantBadges
                         });
 
                         form.reset();
                         window.location.href = "#/search";
+
+                          //event handler
+
+                          document
+                          .addEventListener("click", (e) => {
+                            e.preventDefault();
+                            console.log(e);                            
+                            if(e.target.classList.contains("view-product-button")) {
+                            const productId = e.target.id;
+                            console.log(productId);
+
+                              window.localStorage.setItem("productId", productId);
+                              window.location.href = "#/product";
+
+                            }
+                          });
                       })
                       .catch(function (error) {
                           console.error(error);

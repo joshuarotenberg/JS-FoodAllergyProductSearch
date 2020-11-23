@@ -1,11 +1,13 @@
 import profileIndexController from "./controllers/profileIndexController";
 import allergenIndexController from "./controllers/allergenIndexController";
 import searchIndexController from "./controllers/searchIndexController";
+import productViewController from "./controllers/productViewController";
 
 const routes = {
   "/dashboard": profileIndexController,
   "/allergens": allergenIndexController,
-  "/search": searchIndexController
+  "/search": searchIndexController,
+  "/product": productViewController
 };
 
 function setRoute() {

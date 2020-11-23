@@ -30,9 +30,6 @@ export default function allergenIndexController() {
         const allergenIndexTemplateFunc = Handlebars.compile(allergenIndexTemplateHtml);
         const allergenResultsTemplateFunc = Handlebars.compile(allergenResultsTemplateHtml);
         const editAllergenTemplateFunc = Handlebars.compile(editAllergenTemplateHtml);   
-
-        const allergenList = ['egg', 'milk', 'peanut', 'sesame', 'soy', 'wheat', 'tree nut', 'shellfish', 'fish' ];
-
     
         document
         .getElementById("root")
