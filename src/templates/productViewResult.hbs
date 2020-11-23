@@ -1,2 +1,17 @@
-<h3>this is the product Page</h3>
-{{image}}, {{title}}, {{brand}}
+<div class="container">
+    <h3>Product Details</h3>
+
+    <div id="product-details" class="row p-3 my-5">
+        <div class="col-12 col-md-4"><img src="{{image}}" alt=""></div>
+        <div class="col-12 col-md-8 d-flex flex-column">
+            <h2>{{title}}</h2>
+            <div>
+                {{#each badges}}
+                <span class="badge badge-info">{{this}}</span>
+                {{/each}}
+            </div>
+            <h5 class="mt-3">Ingredients:</h5>
+            <p>{{ingredientList}}</p>
+        </div>
+    </div>
+</div>

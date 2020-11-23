@@ -19,9 +19,6 @@ export default function searchIndexController() {
         const searchIndexTemplateFunc = Handlebars.compile(searchIndexTemplateHtml);
         const searchResultsTemplateFunc = Handlebars.compile(searchResultsTemplateHtmll);
 
-        const eggAllergenList = ['albumin','apovitellin','cholesterol free egg substitute','dried egg solids','dried egg','egg','egg white','egg yolk','egg wash','eggnog','fat substitutes','globulin','livetin','lysozyme','mayonnaise','meringue','meringue powder','ovalbumin','ovoglobulin','ovomucoid','ovomucin','ovotransferrin','ovovitelia','ovovitellin','powdered eggs','silici albuminate','simplesse','trailblazer','vitellin'];
-        console.log(eggAllergenList);
-
         // display wines from firebase in root
     
         document
@@ -95,7 +92,6 @@ export default function searchIndexController() {
                           document
                           .addEventListener("click", (e) => {
                             e.preventDefault();
-                            console.log(e);                            
                             if(e.target.classList.contains("view-product-button")) {
                             const productId = e.target.id;
                             console.log(productId);

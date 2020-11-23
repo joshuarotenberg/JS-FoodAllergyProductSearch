@@ -3,8 +3,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: [ 
-    './src/index.js',
-    './src/js/checkboxes.js'
+    './src/index.js'
   ],
   output: {
     filename: "app.js",
@@ -41,5 +40,10 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  resolve: {
+    alias: {
+       handlebars: 'handlebars/dist/handlebars.min.js'
+    }
+}
 };
