@@ -2,6 +2,8 @@ import axios from "axios";
 import Handlebars from "handlebars";
 import database from "../firebaseConfig";
 
+require ("./searchIndexController");
+
 
 export default function allergenIndexController() {
 
