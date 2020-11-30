@@ -109,51 +109,6 @@ export default function allergenIndexController() {
           }
         });
 
-              // Shellfish Group
-
-      const shellfish = document.querySelectorAll('.shellfish input.sub-options');
-      console.log(shellfish);
-        const checkall = document.getElementById('shellfish');
-
-      for(let i=0; i< shellfish.length; i++) {
-        shellfish[i].onclick = function() {
-          
-          let checkedCount = document.querySelectorAll('.shellfish input.sub-options:checked').length;
-
-          checkall.checked = checkedCount > 0;
-          checkall.indeterminate = checkedCount > 0 && checkedCount < shellfish.length;
-        }
-      }
-
-      checkall.onclick = function() {
-        for(let i=0; i< shellfish.length; i++) {
-          shellfish[i].checked = this.checked;
-        }
-      }
-
-
-          // Tree Nuts Group
-
-        const treeNuts = document.querySelectorAll('.tree-nuts input.sub-options');
-        console.log(treeNuts);
-        const treeNutsChecksall = document.getElementById('tree-nuts');
-
-        for(let i=0; i< treeNuts.length; i++) {
-          treeNuts[i].onclick = function() {
-            
-            let treeNutsCHeckedCounts = document.querySelectorAll('.tree-nuts input.sub-options:checked').length;
-
-            treeNutsChecksall.checked = treeNutsCHeckedCounts > 0;
-            treeNutsChecksall.indeterminate = treeNutsCHeckedCounts > 0 && treeNutsCHeckedCounts < treeNuts.length;
-          }
-        }
-
-        treeNutsChecksall.onclick = function() {
-          for(let i=0; i< treeNuts.length; i++) {
-            treeNuts[i].checked = this.checked;
-          }
-      
-        }
 
         // event delegators
 
@@ -206,7 +161,14 @@ export default function allergenIndexController() {
                 $(".edit-modal").modal("hide");
                 window.location.href = "#/allergens";
             });
-        }
+          }
+
+          if (event.target.classList.contains("search-input")){
+            console.log("clicked search");
+            event.preventDefault();
+            window.location.href = "#/search";
+            
+          }
 
         });
 

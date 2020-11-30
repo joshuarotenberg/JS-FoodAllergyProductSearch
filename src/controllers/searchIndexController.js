@@ -1,6 +1,5 @@
 import axios from "axios";
 import Handlebars from "handlebars";
-import database from "../firebaseConfig";
 
 
 export default function searchIndexController() {
@@ -35,12 +34,10 @@ export default function searchIndexController() {
             const query = document.getElementById("product-search-query").value;
             console.log(query);
 
-            document.getElementById("product-index").innerHTML = "";
-
             const options = {
                 method: 'GET',
                 url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/products/suggest',
-                params: {query: `${query}`, number: '6'},
+                params: {query: `${query}`, number: '12'},
                 headers: {
                   'x-rapidapi-key': 'ba45fa9a58msh724b8c84403afebp18e0b3jsnff0f7c27def7',
                   'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
@@ -49,10 +46,10 @@ export default function searchIndexController() {
               
               axios.request(options)
               .then(function (response) {
-                  console.log(response.data);
-                  const products = response.data.results;
+                
+                document.getElementById("product-index").innerHTML = "";
 
-                  console.log(products);
+                  const products = response.data.results;
 
                   products.forEach(product => {
                       console.log(`${product.title}: ${product.id}`);
