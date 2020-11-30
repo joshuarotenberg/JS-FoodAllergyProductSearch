@@ -14,12 +14,21 @@ export default function productViewController() {
   function render(productPageHtml) {
     const productPageFunc = Handlebars.compile(productPageHtml);
     const productId = window.localStorage.getItem("productId");
+    const masterAllergenList = [];
+
+    Handlebars.registerHelper('checklength', function (v1, v2, options) {
+    'use strict';
+        if (v1.length>v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
 
 
     // allergen Arrays with common or hidden ingredients
 
     const eggAllergens = ['albumin','apovitellin','egg','fat substitutes','globulin','livetin','lysozyme','mayonnaise','meringue','ovalbumin','ovoglobulin','ovomucin','ovomucoid','ovotransferrin','ovovitelia','ovovitellin','simplesse','trailblazer','vitellin'];
-    const peanutAllergens = ['arachic oil','arachis','arachis hypogaea','artificial nuts','beer nuts','crushed nuts','earth nuts','goober peas','ground nuts','lupine','mandelonas','mixed nuts','monkey nuts','nu nuts flavored nuts','nut pieces','nutmeat','peanut'];
+    const peanutAllergens = ['peanuts','arachic oil','arachis','arachis hypogaea','artificial nuts','beer nuts','crushed nuts','earth nuts','goober peas','ground nuts','lupine','mandelonas','mixed nuts','monkey nuts','nu nuts flavored nuts','nut pieces','nutmeat','peanut'];
     const treeNutAllergens = ['anacardiaceae','betulaceae','burseraceae','butternut','butyrospermum parkii','canarium ovatum','caponata','carya illinoensis','carya spp','cashew','castanea','castanea pumila','chestnut','chinquapin','coconut','cocos nucifera','corylus','fagaceae','fagus','filbert','gianduja','ginkgoaceae','ginko','hazelnut','heartnut','hickory nut','indian nut','juglandaceae','juglans cinerea','juglans spp','karite','lichee','litchi','lychee','macadamia','mandelonas','marzipan','nougat','nu-nuts','nut','nutella','nutmeat','palmae','pecan','pigñolia','pili nut','pineaceae','pinon','piñon','pinus spp','pistachio','pistacia vera','pralines','proteaceae','prunus dulcis','rosaceae','sapindaceae','sapotaceae','shea','vitellaria paradoxa'];
     const milkAllergens = ['butter','casein','caseinates','cheese','cream','curds','custard','dairy product solids','galactose','ghee','half & half','hydrolysates','lactalbumin','lactate solids','lactitol monohydrate','lactoglobulin','lactose','lactulose','lactyc yeast','milk','nisin preparation','nougat','pudding','quark','recaldent','rennet','simplesse','whey','yogurt'];
     const soyAllergens = ['bean curd','edamame','kinako','koya dofu','miso','natto','okara','shoyu','soy','soya','soybean','supro','tamari','tempeh','teriyaki sauce','textured vegetable protein','tofu','yaki-dofu','yuba'];
@@ -32,7 +41,6 @@ export default function productViewController() {
         .ref("profiles")
         .on("value", (results) => {
             results.forEach((result) => {
-                const masterAllergenList = [];
 
                 const profile = result.val();
                 const profileId = result.key;
@@ -50,23 +58,31 @@ export default function productViewController() {
 
                 if(isEgg) {
                  masterAllergenList.push(...eggAllergens);
-                } else if (isPeanut) {
+                }  
+                if (isPeanut) {
                     masterAllergenList.push(...peanutAllergens);
-                } else if (isTreeNut) {
+                }  
+                if (isTreeNut) {
                     masterAllergenList.push(...treeNutAllergens);
-                } else if (isMilk) {
+                }  
+                if (isMilk) {
                     masterAllergenList.push(...milkAllergens);
-                } else if (isSoy) {
+                }  
+                if (isSoy) {
                     masterAllergenList.push(...soyAllergens);
-                } else if (isWheat) {
+                }  
+                if (isWheat) {
                     masterAllergenList.push(...wheatAllergens);
-                } else if (isSesame) {
+                }  
+                if (isSesame) {
                     masterAllergenList.push(...sesameAllergens);
                 }                    
             });
 
         });
     
+
+        // make this a dictionary => object keys = milk, soy, value = monster array
 
 
     const options = {
@@ -82,18 +98,35 @@ export default function productViewController() {
       .request(options)
       .then(function (response) {
             const fullProduct = response.data;
-            console.log(fullProduct);                       
+            console.log(fullProduct);
+            const ingredientsObj = fullProduct.ingredients;
+
+            const ingredients = ingredientsObj.map(ing => ing.name.split(" "));
+            const foundAllergen = ingredients.some(r => masterAllergenList.includes(r))
+
+            let filteredAllergens = ingredients.filter(el => masterAllergenList.includes(el));
+            console.log(filteredAllergens); 
+
+            console.log(`ingredients: ${ingredients}`);
+            console.log(`allergenList: ${masterAllergenList}`);
+
             
             document.getElementById("root").innerHTML = productPageFunc({
-            title: fullProduct.title,
-            image: fullProduct.images[0],
-            brand: fullProduct.brand,
-            productId: fullProduct.id,
-            ingredientList: fullProduct.ingredientList,
-            badges: fullProduct.importantBadges
+                title: fullProduct.title,
+                image: fullProduct.images[0],
+                brand: fullProduct.brand,
+                productId: fullProduct.id,
+                ingredientList: fullProduct.ingredientList,
+                badges: fullProduct.importantBadges,
+                matches: filteredAllergens
             });
 
-            console.log(masterAllergenList);
+            if (foundAllergen) {
+                console.log('we found a match');
+            } else {
+                console.log('this is safe');
+            }
+
    
         });
     }

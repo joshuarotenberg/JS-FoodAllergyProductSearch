@@ -1,6 +1,12 @@
 <div class="container">
     <h3>Product Details</h3>
 
+    {{#checklength matches 0}}
+    <p>more than 1</p>
+    {{else}}
+    <p>less than 1</p>
+    {{/checklength}}
+
     <div id="product-details" class="row p-3 my-5">
         <div class="col-12 col-md-4"><img src="{{image}}" alt=""></div>
         <div class="col-12 col-md-8 d-flex flex-column">

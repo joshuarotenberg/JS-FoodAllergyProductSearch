@@ -24,7 +24,7 @@ function setRoute() {
   }
 
   // If nothing matches, trigger the search route
-  window.location.hash = "/dashboard";
+  window.location.hash = "/search";
 }
 
 
