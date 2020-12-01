@@ -33,6 +33,7 @@ export default function searchIndexController() {
             console.log("product search submitted");
             const query = document.getElementById("product-search-query").value;
             console.log(query);
+            form.reset();
 
             const options = {
                 method: 'GET',
@@ -69,8 +70,11 @@ export default function searchIndexController() {
                       axios
                       .request(options)
                       .then(function (response) {
+                        document.getElementById("result-title").setAttribute("style","display:block;");
                             const fullProduct = response.data;
-                            console.log(fullProduct);                       
+                            console.log(fullProduct);  
+                            
+                            
                             
                           document.getElementById("product-index").innerHTML += searchResultsTemplateFunc({
                            title: fullProduct.title,
@@ -81,8 +85,8 @@ export default function searchIndexController() {
                           //  badges: fullProduct.importantBadges
                         });
 
-                        form.reset();
-                        window.location.href = "#/search";
+                        
+                        
 
                           //event handler
 
@@ -90,12 +94,16 @@ export default function searchIndexController() {
                           .addEventListener("click", (e) => {
                             e.preventDefault();
                             if(e.target.classList.contains("view-product-button")) {
-                            const productId = e.target.id;
-                            console.log(productId);
+                              const productId = e.target.id;
+                              console.log(productId);
 
                               window.localStorage.setItem("productId", productId);
                               window.location.href = "#/product";
-
+                            }
+                            if (e.target.classList.contains("search-input")){
+                              document.getElementById("product-index").innerHTML = "";
+                              console.log("clicked search");
+                              window.location.reload();
                             }
                           });
                       })
