@@ -35,6 +35,18 @@ export default function allergenIndexController() {
         .getElementById("root")
         .innerHTML = allergenIndexTemplateFunc();
 
+          // check to see if profile exists and remove welcome div
+
+          database
+          .ref("profiles")
+          .once("value")
+          .then(function(snapshot) {
+            const profileExists = snapshot.exists();  // true
+            if (profileExists) {
+              document.getElementById("welcome").innerHTML = "";
+            }
+          });
+
 
         ////// create new allergen profile
 
@@ -97,17 +109,6 @@ export default function allergenIndexController() {
 
         });
 
-        // check to see if profile exists and remove welcome div
-
-        database
-        .ref("profiles")
-        .once("value")
-        .then(function(snapshot) {
-          const profileExists = snapshot.exists();  // true
-          if (profileExists) {
-            document.getElementById("welcome").innerHTML = "";
-          }
-        });
 
 
         // event delegators
@@ -115,6 +116,7 @@ export default function allergenIndexController() {
         document
         .addEventListener("click", (event) => {
           if (event.target.classList.contains("edit-profile-button")) {
+            event.preventDefault();
             console.log("clicking edit button");
 
             // grab profileId from edit button

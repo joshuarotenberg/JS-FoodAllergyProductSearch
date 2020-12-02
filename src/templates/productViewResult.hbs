@@ -1,7 +1,6 @@
 <div class="container">
     <h3>Product Details</h3>
-
-    <div id="product-details" class="row p-3 my-5">
+    <div id="product-details" class="row p-3 mb-5">
         <div class="col-12 col-md-4">
             {{#checklength matches 0}}
             <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
@@ -13,6 +12,10 @@
                         <li class="card-text">{{this}}</li>
                         {{/each}}
                     </ul>
+                </div>
+                <div class="card-footer">
+                    <button id="{{productId}}" class="danger-list-button btn btn-secondary w-100">Add to Danger
+                        List</button>
                 </div>
             </div>
             <img src="{{image}}" alt="">

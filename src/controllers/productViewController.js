@@ -117,6 +117,8 @@ export default function productViewController() {
             const ingredients = ingredientsObj.map(ing => ing.name);
             const foundAllergen = ingredients.some(r => masterAllergenList.includes(r))
 
+            // stringify ingredient array
+
             let filteredAllergens = masterAllergenList.filter(el => ingredients.includes(el));
             console.log(filteredAllergens); 
 
@@ -147,9 +149,18 @@ export default function productViewController() {
         // click handlers
         document
         .addEventListener("click", (event) => {
+            event.preventDefault();
             if (event.target.classList.contains("search-input")){
                 console.log("clicked search");
                 window.location.href = "#/search";
+            }
+            if (event.target.classList.contains("nav-search")){
+                console.log("clicked search nav link");
+                window.location.href = "#/search";
+            }
+            if (event.target.classList.contains("nav-allergens")){
+                console.log("clicked allergen nav link");
+                window.location.href = "#/allergens";
             }
         });
     }

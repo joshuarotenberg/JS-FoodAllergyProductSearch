@@ -33,7 +33,6 @@ export default function searchIndexController() {
             console.log("product search submitted");
             const query = document.getElementById("product-search-query").value;
             console.log(query);
-            form.reset();
 
             const options = {
                 method: 'GET',
