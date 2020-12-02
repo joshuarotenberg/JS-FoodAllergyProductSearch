@@ -1,11 +1,13 @@
 import allergenIndexController from "./controllers/allergenIndexController";
 import searchIndexController from "./controllers/searchIndexController";
 import productViewController from "./controllers/productViewController";
+import dangerIndexController from "./controllers/dangerIndexController";
 
 const routes = {
   "/allergens": allergenIndexController,
   "/search": searchIndexController,
-  "/product": productViewController
+  "/product": productViewController,
+  "/danger-list": dangerIndexController
 };
 
 function setRoute() {

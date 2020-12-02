@@ -143,6 +143,31 @@ export default function productViewController() {
                 console.log('this is safe');
             }
 
+            document
+            .addEventListener("click", (event) => {
+                event.preventDefault();
+                if(event.target.classList.contains("danger-list-button")){
+
+                    const newProductDanger = {
+                        productTitle: fullProduct.title,
+                        productBrand: fullProduct.brand,
+                        productImage: fullProduct.images[0]
+                        }
+                        
+                        //add record to Firebase using the Firebase SDK
+            
+                        console.log(newProductDanger);
+            
+                        database
+                        .ref("productDanger")
+                        .push(newProductDanger)
+                        .then(() => {          
+                            console.log("added to dangerList");
+                        });
+
+                }
+            });
+
    
         });
 
