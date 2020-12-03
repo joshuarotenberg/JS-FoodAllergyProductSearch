@@ -163,6 +163,7 @@ export default function productViewController() {
                         .push(newProductDanger)
                         .then(() => {          
                             console.log("added to dangerList");
+                            document.getElementById("danger-list-alert").setAttribute("style","display:block;");
                         });
 
                 }

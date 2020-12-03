@@ -32,7 +32,6 @@ export default function dangerIndexController() {
         .ref("productDanger")
         .on("value", (results) => {
             results.forEach((result) => {
-                dangerIndex.innerHTML = "";
                 const productDanger = result.val();
                 const productId = result.key;
                 console.log(productDanger);

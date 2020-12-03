@@ -69,6 +69,7 @@ export default function searchIndexController() {
                       axios
                       .request(options)
                       .then(function (response) {
+                        document.getElementById("product-index-placeholder").setAttribute("style","display:none;");
                         document.getElementById("result-title").setAttribute("style","display:block;");
                             const fullProduct = response.data;
                             console.log(fullProduct);  

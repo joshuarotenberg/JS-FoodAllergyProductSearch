@@ -50,3 +50,13 @@ nav {
   border: 1px solid gray;
   border-radius: 6px;
 }
+
+#product-index-placeholder {
+  .card {
+    border: 1px dashed rgba(0, 0, 0, 0.125);
+  }
+  i,
+  h3 {
+    color: rgba(0, 0, 0, 0.125);
+  }
+}
