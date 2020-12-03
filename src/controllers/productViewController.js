@@ -2,6 +2,7 @@ import axios from "axios";
 import Handlebars from "handlebars";
 import database from "../firebaseConfig";
 
+//prep hbs templates
 
 export default function productViewController() {
   axios
@@ -11,12 +12,14 @@ export default function productViewController() {
     return render(productPageHtml);
   });
 
+  // render templates
+
   function render(productPageHtml) {
     const productPageFunc = Handlebars.compile(productPageHtml);
     const productId = window.localStorage.getItem("productId");
     const masterAllergenList = [];
 
-
+    // handlebars helper to display green or red cards on product view if allergen detected
     Handlebars.registerHelper('checklength', function (v1, v2, options) {
     'use strict';
         if (v1.length>v2) {
@@ -95,8 +98,7 @@ export default function productViewController() {
         });
     
 
-        // make this a dictionary => object keys = milk, soy, value = monster array
-
+        // grab product details to parse ingredient list
 
     const options = {
         method: 'GET',
@@ -114,11 +116,11 @@ export default function productViewController() {
             console.log(fullProduct);
             const ingredientsObj = fullProduct.ingredients;
 
+            // grab ingredient array from object
             const ingredients = ingredientsObj.map(ing => ing.name);
             const foundAllergen = ingredients.some(r => masterAllergenList.includes(r))
 
-            // stringify ingredient array
-
+            // check against ingredients array for matching words
             let filteredAllergens = masterAllergenList.filter(el => ingredients.includes(el));
             console.log(filteredAllergens); 
 
@@ -137,15 +139,19 @@ export default function productViewController() {
                 matches: filteredAllergens
             });
 
+            // just to check is match exists in console.
+
             if (foundAllergen) {
                 console.log('we found a match');
             } else {
                 console.log('this is safe');
             }
 
+            // product view event handlers
             document
             .addEventListener("click", (event) => {
                 event.preventDefault();
+                // add products to danger list in firebase
                 if(event.target.classList.contains("danger-list-button")){
 
                     const newProductDanger = {
@@ -154,7 +160,6 @@ export default function productViewController() {
                         productImage: fullProduct.images[0]
                         }
                         
-                        //add record to Firebase using the Firebase SDK
             
                         console.log(newProductDanger);
             
@@ -172,7 +177,7 @@ export default function productViewController() {
    
         });
 
-        // click handlers
+        // nav click handlers => product page issues
         document
         .addEventListener("click", (event) => {
             event.preventDefault();

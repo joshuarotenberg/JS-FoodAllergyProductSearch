@@ -4,6 +4,8 @@ import Handlebars from "handlebars";
 
 export default function searchIndexController() {
 
+  // prep HBS templates
+
     axios
     .get("templates/searchIndex.hbs")
     .then((searchIndexResponse) => {
@@ -14,11 +16,12 @@ export default function searchIndexController() {
       });
     });
 
+    // render hbs templates with logic/content/data
+
     function render(searchIndexTemplateHtml, searchResultsTemplateHtmll) {
         const searchIndexTemplateFunc = Handlebars.compile(searchIndexTemplateHtml);
         const searchResultsTemplateFunc = Handlebars.compile(searchResultsTemplateHtmll);
 
-        // display wines from firebase in root
     
         document
         .getElementById("root")
@@ -26,6 +29,8 @@ export default function searchIndexController() {
 
         const form = document
         .getElementById("product-search-form")
+
+        // product search form => two API calls: 1.) first to grab product suggestions 2.) pass selected product id for full product details
         
         form
         .addEventListener("submit", (event) => {
@@ -33,6 +38,8 @@ export default function searchIndexController() {
             console.log("product search submitted");
             const query = document.getElementById("product-search-query").value;
             console.log(query);
+
+            // grab product guggestions
 
             const options = {
                 method: 'GET',
@@ -50,6 +57,8 @@ export default function searchIndexController() {
                 document.getElementById("product-index").innerHTML = "";
 
                   const products = response.data.results;
+
+                  // list products
 
                   products.forEach(product => {
                       console.log(`${product.title}: ${product.id}`);
@@ -69,13 +78,16 @@ export default function searchIndexController() {
                       axios
                       .request(options)
                       .then(function (response) {
+
+                        // hide search index placeholder
                         document.getElementById("product-index-placeholder").setAttribute("style","display:none;");
+
+                        // display header when products are returned
                         document.getElementById("result-title").setAttribute("style","display:block;");
                             const fullProduct = response.data;
                             console.log(fullProduct);  
                             
-                            
-                            
+                          // ship product details to results template
                           document.getElementById("product-index").innerHTML += searchResultsTemplateFunc({
                            title: fullProduct.title,
                            image: fullProduct.images[0],
@@ -85,10 +97,8 @@ export default function searchIndexController() {
                           //  badges: fullProduct.importantBadges
                         });
 
-                        
-                        
 
-                          //event handler
+                          //event click handlers
 
                           document
                           .addEventListener("click", (e) => {
@@ -97,9 +107,11 @@ export default function searchIndexController() {
                               const productId = e.target.id;
                               console.log(productId);
 
+                              // store product id, for use on product page
                               window.localStorage.setItem("productId", productId);
                               window.location.href = "#/product";
                             }
+                            // reload search form if looking at products
                             if (e.target.classList.contains("search-input")){
                               document.getElementById("product-index").innerHTML = "";
                               console.log("clicked search");

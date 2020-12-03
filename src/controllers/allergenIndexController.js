@@ -5,6 +5,8 @@ import database from "../firebaseConfig";
 
 export default function allergenIndexController() {
 
+  //handelbars helper to check if profiles exist in firebase and display welcome message if false
+
   Handlebars.registerHelper('ifIn', function(elem, list, options) {
     if(list.indexOf(elem) > -1) {
       return options.fn(this);
