@@ -1,0 +1,56 @@
+<div id="danger-list-alert" style="display:none" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Holy guacamole!</strong> You successfully added <strong>{{title}}</strong> to your <strong><a
+            href="#/danger-list">Danger
+            List</a></strong>.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="container">
+    <h3>Product Details</h3>
+    <div id="product-details" class="row p-3 mb-5">
+        <div class="col-12 col-md-4">
+            {{#checklength matches 0}}
+            <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+                <div class="card-header">Allergen(s) Detected</div>
+                <div class="card-body">
+                    <h5 class="card-title">This product contains:</h5>
+                    <ul>
+                        {{#each matches}}
+                        <li class="card-text">{{this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <button id="{{productId}}" class="danger-list-button btn btn-secondary w-100">Add to Danger
+                        List</button>
+                </div>
+            </div>
+            <img src="{{image}}" alt="">
+
+            {{else}}
+            <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                <div class="card-header">No Allergen(s) Detected</div>
+                <div class="card-body">
+                    <h5 class="card-title">This appears safe</h5>
+
+
+                    <p class="card-text">Please confirm with ingredient list</p>
+
+                </div>
+            </div>
+            {{/checklength}}
+
+        </div>
+        <div class="col-12 col-md-8 d-flex flex-column">
+            <h2>{{title}}</h2>
+            <div>
+                {{#each badges}}
+                <span class="badge badge-info">{{this}}</span>
+                {{/each}}
+            </div>
+            <h5 class="mt-3">Ingredients:</h5>
+            <p>{{ingredientList}}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<form id="allergen-edit-form" class="d-flex flex-wrap col-12">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="allergenModalLabel">Update Profile</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body pl-4">
+            <div class="row no-gutters">
+                <div class="form-group col-12">
+                    <label for="profile-name">Profile Name</label>
+                    <input type="text" class="form-control w-100" id="profile-name" value="{{name}}">
+                    <small id="profileNameHelp" class="form-text text-muted">Let's add a name to this
+                        profile.</small>
+                </div>
+                <div class="col-12">
+                    <p class="mb-0">Allergens:</p>
+                    <small id="allergenHelp" class="form-text text-muted mb-2 mt-0">Please check all allergens
+                        that
+                        apply.</small>
+                </div>
+
+                <div class="d-flex flex-wrap justfiy-content-between">
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="eggs" id="eggs" {{#each allergens}}
+                            {{#ifIn 'eggs' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="eggs">
+                            Egg Allergy
+                        </label>
+                    </div>
+
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="milk" id="milk" {{#each allergens}}
+                            {{#ifIn 'milk' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="milk">
+                            Milk Allergy
+                        </label>
+                    </div>
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="peanuts" id="peanuts" {{#each allergens}}
+                            {{#ifIn 'peanuts' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="peanuts">
+                            Peanut Allergy
+                        </label>
+                    </div>
+
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="sesame" id="sesame" {{#each allergens}}
+                            {{#ifIn 'sesame' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="sesame">
+                            Sesame Allergy
+                        </label>
+                    </div>
+
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="soy" id="soy" {{#each allergens}}
+                            {{#ifIn 'soy' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="soy">
+                            Soy Allergy
+                        </label>
+                    </div>
+                    <div class="form-check mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="wheat" id="wheat" {{#each allergens}}
+                            {{#ifIn 'wheat' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="wheat">
+                            Wheat Allergy
+                        </label>
+                    </div>
+                    <div class="form-check  mr-3 mb-2">
+                        <input class="form-check-input" type="checkbox" value="tree-nuts" id="tree-nuts"
+                            {{#each allergens}} {{#ifIn 'tree-nuts' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="tree-nuts">Tree Nut Allergy</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="shellfish" id="shellfish"
+                            {{#each allergens}} {{#ifIn 'shellfish' this }}checked{{/ifIn}} {{/each}}>
+                        <label class="form-check-label" for="shellfish">
+                            Shellfish (Crustaceans) Allergy
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer d-flex flex-row justify-content-between">
+            <button type="button" id="{{profileId}}" class="btn btn-outline-danger delete-profile-button">Delete
+                Profile</button>
+            <div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="update-profile-button" type="button" class="btn btn-primary">Update Profile</button>
+            </div>
+        </div>
+</form>
