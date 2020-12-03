@@ -133,8 +133,5 @@ export default function searchIndexController() {
         })
 
 
-       
-
-
     }
 }

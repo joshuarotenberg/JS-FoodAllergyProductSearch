@@ -193,6 +193,10 @@ export default function productViewController() {
                 console.log("clicked allergen nav link");
                 window.location.href = "#/allergens";
             }
+            if (event.target.classList.contains("nav-danger")){
+                console.log("clicked search");
+                window.location.href = "#/danger-list";
+            }
         });
     }
 }
