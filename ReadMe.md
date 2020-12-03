@@ -2,7 +2,7 @@
 
 For the final project, you'll be designing and building a web app of your choice. This project will test your knowledge of JavaScript and ask you to apply everything you've learned in this course. The result will be a web app that you can add to your portfolio. You could create anything from: a blog users can comment on; an app that allows users to search for social media posts; or even an application that logs users geolocations. Work with your instructor to create project goals that are realistic given the scope and timing of the class.
 
-## ## Technical Requirements
+## Technical Requirements
 
 Use JavaScript to correctly structure the code for a web application:
 
@@ -63,5 +63,5 @@ This was an invaluable experience, not withstanding.
 
 - An application of this magnitude should use an SPA framework like react. I felt like it lacks components and organization
 - Handlebars has awesome helpers:
-  - {{#each array}} => will loop through anything that is passed as an array {{this}} will be printed.
+  - `{{#each array}}` => will loop through anything that is passed as an array `{{this}}` will be printed.
   - You can build custom helpers: I used this to check if the table existed for view manipulation
