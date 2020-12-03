@@ -17,7 +17,7 @@ Hosting:
 
 - App must be hosted on either GitHub Pages or Heroku
 
-## Food Allergen Product Search
+## [Food Allergen Product Search] (https://pages.git.generalassemb.ly/JSR-922/FinalProject-JoshuaRotenberg-FoodAllergyProductSearch/#/search)
 
 Tools/Frameworks used:
 
