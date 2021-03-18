@@ -46,7 +46,7 @@ export default function searchIndexController() {
                 url: 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/food/products/suggest',
                 params: {query: `${query}`, number: '12'},
                 headers: {
-                  'x-rapidapi-key': 'ba45fa9a58msh724b8c84403afebp18e0b3jsnff0f7c27def7',
+                  'x-rapidapi-key': 'XXXXXXXXX',
                   'x-rapidapi-host': 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
                 }
               };
